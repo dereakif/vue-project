@@ -1,15 +1,14 @@
 <template>
   <div>
-    Home
-
-    <User />
+    <idea-form />
   </div>
 </template>
 
 <script>
-import User from "../components/User.vue";
+import IdeaForm from "../components/IdeaForm.vue";
+
 export default {
-  components: { User },
+  components: { IdeaForm },
 };
 </script>
 

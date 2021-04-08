@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <Test text="testing stuff" />
     <Home />
   </div>
 </template>
 
 <script>
-import Test from "./components/Test.vue";
 import Home from "./views/Home.vue";
 
 export default {
   name: "App",
   components: {
-    Test,
     Home,
   },
 };
