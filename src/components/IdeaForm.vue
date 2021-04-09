@@ -1,12 +1,15 @@
 <template>
   <div>
     <div>{{ showForm ? "true" : "false" }}</div>
-    <button @click="toggleForm">Add Idea</button>
+    <button class="togbtn" @click="toggleForm">Add Idea</button>
+    <div>
+      <input type="text" v-model="filterby.cat" />
+    </div>
     <div v-show="showForm" class="form-container">
       <div class="idea-title">Your Idea</div>
       <div><input type="text" v-model="newIdea.title" /></div>
       <div class="idea-category">Cat selection</div>
-      <div><input type="text" v-model="newIdea.cat" /></div>
+      <div><input type="text" v-model="newIdea.category" /></div>
       <div class="description">Description</div>
       <div><input type="text" v-model="newIdea.description" /></div>
       <div>
@@ -15,33 +18,55 @@
         </button>
       </div>
     </div>
-    <div class="idea-container" v-for="idea in ideas" :key="idea.title">
+
+    <div class="idea-container" v-for="idea in filterByCat" :key="idea.title">
       <div>{{ idea.title }}</div>
-      <div>{{ idea.cat }}</div>
+      <div></div>
       <div>{{ idea.description }}</div>
+      <div class="time-cat">
+        <span>{{ from(idea.created_at) }}</span>
+        <span>{{ idea.category }}</span>
+        <span>category</span>
+      </div>
+      <div>
+        <button @click="voteHandler(idea)">
+          {{ idea.voted ? "Voted" : "Vote" }}
+        </button>
+        <div>{{ idea.votes }}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
+import * as dayjs from "dayjs";
+const relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
+console.warn(dayjs().from("2021-04-09 13:43:56"));
+
 export default {
   name: "IdeaForm",
-  /*  data() {
+  data() {
     return {
-      newIdea: {
-        title: "",
-        cat: "",
-        description: "",
+      now() {
+        return dayjs();
+      },
+      from(date) {
+        return dayjs(date).from(this.now());
       },
     };
-  }, */
+  },
+  mounted() {
+    this.now();
+  },
   computed: {
-    ...mapState("items", ["showForm", "ideas", "newIdea"]),
+    ...mapState("items", ["showForm", "ideas", "newIdea", "filterby"]),
+    ...mapGetters("items", ["filterByCat"]),
   },
   methods: {
     // ...mapMutations("items", ["toggleForm"]),
-    ...mapActions("items", ["toggleForm", "addIdea"]),
+    ...mapActions("items", ["toggleForm", "addIdea", "voteHandler"]),
   },
 };
 </script>
@@ -58,5 +83,13 @@ export default {
   border: 1px solid black;
   margin: 25px auto;
   width: 30%;
+}
+.togbtn {
+  border: 1px solid black;
+  margin: 25px auto;
+}
+.time-cat {
+  display: flex;
+  justify-content: space-around;
 }
 </style>
