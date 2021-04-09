@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>{{ showForm ? "true" : "false" }}</div>
     <button @click="toggleForm">Add Idea</button>
     <div v-show="showForm" class="form-container">
       <div class="idea-title">Your Idea</div>
@@ -9,9 +10,7 @@
       <div class="description">Description</div>
       <div><input type="text" v-model="newIdea.description" /></div>
       <div>
-        <button
-          @click="addIdea(newIdea.title, newIdea.cat, newIdea.description)"
-        >
+        <button @click="addIdea">
           submit idea
         </button>
       </div>
@@ -25,30 +24,24 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
   name: "IdeaForm",
-  data() {
+  /*  data() {
     return {
-      showForm: false,
-      ideas: [],
       newIdea: {
         title: "",
         cat: "",
         description: "",
       },
     };
+  }, */
+  computed: {
+    ...mapState("items", ["showForm", "ideas", "newIdea"]),
   },
   methods: {
-    addIdea(title, cat, description) {
-      this.ideas = [
-        { title: title, cat: cat, description: description },
-        ...this.ideas,
-      ];
-      this.newIdea = {};
-    },
-    toggleForm() {
-      this.showForm = !this.showForm;
-    },
+    // ...mapMutations("items", ["toggleForm"]),
+    ...mapActions("items", ["toggleForm", "addIdea"]),
   },
 };
 </script>
