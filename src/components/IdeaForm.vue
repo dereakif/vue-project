@@ -7,7 +7,17 @@
     </div>
     <div v-show="showForm" class="form-container">
       <div class="idea-title">Your Idea</div>
-      <div><input type="text" v-model="newIdea.title" /></div>
+      <div>
+        <input
+          v-model="newIdea.title"
+          type="text"
+          name="name"
+          id="name"
+          placeholder="John Doe"
+          required
+          class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+        />
+      </div>
       <div class="idea-category">Cat selection</div>
       <!--  <div><input type="text" v-model="newIdea.category" /></div> -->
       <select
