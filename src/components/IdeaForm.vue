@@ -25,14 +25,24 @@
       <div>{{ idea.description }}</div>
       <div class="time-cat">
         <span>{{ from(idea.created_at) }}</span>
-        <span>{{ idea.category }}</span>
+        <span class="category-text">{{ idea.category }}</span>
         <span>category</span>
       </div>
       <div>
-        <button @click="voteHandler(idea)">
-          {{ idea.voted ? "Voted" : "Vote" }}
-        </button>
-        <div>{{ idea.votes }}</div>
+        <div class="voteBtnContainer">
+          <div
+            v-bind:class="{ active: idea.voted }"
+            v-bind:style="{ color: `black` }"
+          >
+            {{ idea.votes }}
+          </div>
+          <div
+            v-bind:style="{ backgroundColor: idea.voted ? `blue` : `gray` }"
+            @click="voteHandler(idea)"
+          >
+            {{ idea.voted ? "Voted" : "Vote" }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -91,5 +101,17 @@ export default {
 .time-cat {
   display: flex;
   justify-content: space-around;
+}
+.voteBtnContainer {
+  width: 100px;
+  margin: auto;
+  border: 1px black solid;
+  color: white;
+}
+.category-text {
+  font-weight: bold;
+}
+.active {
+  background-color: red;
 }
 </style>
