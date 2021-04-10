@@ -9,7 +9,15 @@
       <div class="idea-title">Your Idea</div>
       <div><input type="text" v-model="newIdea.title" /></div>
       <div class="idea-category">Cat selection</div>
-      <div><input type="text" v-model="newIdea.category" /></div>
+      <!--  <div><input type="text" v-model="newIdea.category" /></div> -->
+      <select
+        class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
+        v-model="newIdea.category"
+      >
+        <option>Category 1</option>
+        <option>Category 2</option>
+        <option>Category 3</option>
+      </select>
       <div class="description">Description</div>
       <div><input type="text" v-model="newIdea.description" /></div>
       <div>
